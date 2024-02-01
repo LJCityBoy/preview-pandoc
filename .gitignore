@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 *.local
+outputs
+uploads
 
 # Editor directories and files
 .vscode/*
