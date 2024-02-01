@@ -29,11 +29,19 @@ app.post("/doc2html", temUpload.single("file"), (req, res) => {
     if (err) {
       return res.status(500).end();
     } else {
+      //--self-contained 将所有相关资源（如图片）嵌入到生成的HTML中，以便将其作为单个页面共享而不依赖外部文件
+      //--toc 输出目录，会自动跟进docx生成目录 --toc-depth=3 这个应该是表示最多识别到3级目录
+      //--extract-media=./outputs/HTML 媒体资源（如图片等）单独输出到一个文件夹
+      //--ascii 指定编码为ASCII
+      // const command =
+      //   req.body.command ||
+      //   `pandoc -s ${newFilePath} -t html -o ${outputFilePath} --extract-media=./outputs/HTML --to=html-native_divs-native_spans --toc`;
+
       const command =
         req.body.command ||
-        `pandoc -s ${newFilePath} -t html -o ${outputFilePath} --extract-media=./outputs/HTML`;
+        `pandoc -s ${newFilePath} -t html -o ${outputFilePath} --extract-media=./outputs/HTML --to=html-native_divs-native_spans --toc`;
 
-      console.log(command);
+      // console.log(command);
 
       //   拿到文件以及文件转换命令，调用pandoc命令进行文件转换工作
       exec(command, async (error, stdout, stderr) => {
